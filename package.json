@@ -1,0 +1,17 @@
+{
+  "name": "pomeranian-ai-pet",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.14" },
+  "scripts": {
+    "dev": "tsc && node dist/src/index.js",
+    "interactive": "tsc && node dist/src/index.js --interactive",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "test": "tsc && node --test --test-isolation=none dist/tests/*.test.js"
+  },
+  "dependencies": { "zod": "^4.0.0" },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.9.0" }
+}
