@@ -20,7 +20,7 @@ Trên máy đã cài Node/npm: `npm.cmd run ui` (Windows) hoặc `npm run ui` (m
 - `+10 phút` gọi Decision Engine để pet tự chọn một hành động; thời lượng hành động được cộng thêm.
 - UI dùng API Node.js gọi trực tiếp lớp `Pet`; không có bản sao logic ở React. Thay đổi được xếp hàng và chỉ trả thành công sau khi ghi `data/pet-state.json`. Tải lại trình duyệt vẫn giữ tiến trình.
 - Chỉ chạy **một server hoặc terminal simulation** với cùng file state. Context còn trong bộ nhớ của server; khởi động lại server sẽ đặt lại môi trường mặc định. Dữ liệu pet, lịch sử, tên và khoảng chờ vẫn được lưu.
-- Server chỉ lắng nghe trên máy hiện tại (`127.0.0.1`). Chưa có đăng nhập, đồng bộ nhiều máy, hội thoại AI hay animation đầy đủ. Hình pet dùng nguyên ảnh chuẩn do người dùng gửi; chuyển động theo pose chưa có.
+- Server chỉ lắng nghe trên máy hiện tại (`127.0.0.1`). Chưa có đăng nhập, đồng bộ nhiều máy hoặc hội thoại AI. Pet có 6 tư thế và chuyển động 2D cơ bản, sinh từ ảnh chuẩn; chưa có rig hoặc animation nhiều frame. Nút **Xem ảnh chuẩn** giữ ảnh gốc để đối chiếu; **Tắt chuyển động** dừng hiệu ứng nhưng pet vẫn tiếp tục mô phỏng.
 
 Giao diện nằm trong `web/src/`, API trong `src/server.ts` và `src/webApi.ts`. Chạy `npm run build:ui` để build giao diện; `npm run typecheck` kiểm tra cả core và React; `npm test` kiểm tra core, lưu dữ liệu và API. Có thể đặt biến môi trường `PORT` và `PET_STATE_PATH` khi cần phiên thử nghiệm riêng.
 
@@ -103,7 +103,8 @@ data/pet-state.json         # Tự sinh, không commit dữ liệu cá nhân
 - Decision Engine xét personality, stats, relationship, context, ba hành động gần nhất và nhiễu ngẫu nhiên nhỏ. Có thể truyền hàm random cố định để kiểm tra tái lập.
 - Thiếu điều kiện thì hành động bị loại: không ăn khi thiếu thức ăn, không chơi khi chủ vắng mặt hoặc thiếu đồ chơi. Ăn tiêu thụ phần ăn. Tiếng động và sự kiện chủ về hết hiệu lực sau một bước.
 - Memory có profile và preferences lâu dài; recent giữ 20 sự kiện, episodic giữ 200 sự kiện. Sở thích được học theo số lần tương tác; chi tiết trong docs/PET-DESIGN.md.
-- Bond level = `1 + floor(bondXp / 25)`. Chơi, ăn khi có chủ và ở cạnh chủ tăng quan hệ.
+- Bond level = `min(7, 1 + floor(bondXp / 25))`. XP tiếp tục tích lũy ở cấp 7. Chơi, ăn khi có chủ và ở cạnh chủ tăng quan hệ.
+- Giao diện có hành trình 7 mốc gắn bó và kỷ niệm đáng nhớ. Xem [cách bộ nhớ và quan hệ hoạt động](docs/MEMORY-AND-BOND.md).
 - File lưu có version và được kiểm tra kiểu, miền giá trị, ngày giờ, kích thước bộ nhớ. File hỏng gây lỗi rõ ràng và được giữ nguyên. Ghi qua file tạm rồi đổi tên để tránh JSON bị ghi dở.
 - Chạy một phiên trên mỗi file state. Context là môi trường của phiên, được khởi tạo lại khi mở chương trình. Không tự cộng thời gian offline; một bước chỉ thực hiện một hành động, kể cả `tick 30`. Health được giữ để mở rộng, chưa có cơ chế bệnh tật.
 - Thời lượng hành động được cộng vào `simulationMinutes` và nhu cầu cơ thể: ngủ 60 phút, nghỉ 15 phút, chơi 10 phút, ăn 5 phút. `tick 30` cộng 30 phút chờ **và** thời lượng hành động được chọn. Chương trình hoàn tất hành động ngay theo thời gian mô phỏng, không chờ ngoài đời; chưa có animation hoặc hành động đang diễn ra để ngắt giữa chừng.
@@ -126,5 +127,7 @@ Tests kiểm tra thời gian, ngưỡng mood, ưu tiên nhu cầu, điều kiệ
 `npm run dev` biên dịch TypeScript trước mỗi lần chạy; không tự watch. Core không phụ thuộc terminal, có thể tích hợp UI hoặc dịch vụ AI qua lớp `Pet` ở phiên bản sau.
 
 ## Đối chiếu thiết kế gốc
+
+Xem [tiến độ theo 5 giai đoạn](docs/PROGRESS.md), cập nhật ngày 2026-09-17.
 
 Xem [PET-DESIGN.md](docs/PET-DESIGN.md) cho ảnh chuẩn, các điểm đã khớp và những phần chưa hoàn tất. UI tự chạy một chu kỳ mỗi 20 giây khi trang hiển thị, có nút tạm dừng; không bù thời gian offline. Cho ăn trong UI đặt đồ vào bát để pet quyết định ở chu kỳ sau. Terminal vẫn hỗ trợ bước thủ công.

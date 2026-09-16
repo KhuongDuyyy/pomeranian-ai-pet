@@ -2,6 +2,9 @@ import { z } from "zod";
 import { canAct, type Action } from "./pet/actions.js";
 import { Pet } from "./pet/pet.js";
 import { saveState } from "./pet/persistence.js";
+import { bondProfile } from './pet/relationship.js';
+import { learnedHabits } from './pet/habits.js';
+import { currentActivity } from './pet/activity.js';
 
 export const commandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("observe") }).strict(),
@@ -55,6 +58,9 @@ export function snapshot(pet: Pet) {
     state: pet.state,
     context: pet.context,
     mood: pet.mood,
+    bond: bondProfile(pet.state.relationship),
+    habits: learnedHabits(pet.state.memory),
+    activity: currentActivity(pet.state.memory),
     autonomy: { enabled: true, intervalSeconds: 20 },
     available: Object.fromEntries(
       actions.map((action) => [action, canAct(action, pet.state, pet.context)]),
@@ -75,6 +81,7 @@ export class PetService {
     return this.read();
   }
   async pulse(now = Date.now()): Promise<void> {
+    if (currentActivity(this.pet.state.memory, now)) return;
     if (!this.enabled || now - this.lastSeen > 8000 || now < this.nextTick)
       return;
     this.nextTick = now + 20000;
@@ -103,6 +110,9 @@ export class PetService {
       const next = new Pet(structuredClone(this.pet.state), {
         ...this.pet.context,
       });
+      if (currentActivity(next.state.memory) && (command.type === 'act' || command.type === 'tick')) {
+        throw new Error('Bôngg đang hoàn thành hoạt động. Chờ một chút nhé.');
+      }
       switch (command.type) {
         case "act":
           next.act(command.action);
@@ -130,7 +140,7 @@ export class PetService {
           next.context[command.key] = command.value;
           if (command.key === "ownerPresent") {
             next.context.ownerJustArrived = command.value && !wasPresent;
-            if (next.context.ownerJustArrived) next.tick(0);
+            if (next.context.ownerJustArrived && !currentActivity(next.state.memory)) next.tick(0);
           }
           break;
         }

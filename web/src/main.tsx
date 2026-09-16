@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import type { PetCommand, PetSnapshot } from "../../src/webApi.js";
+import { PetStage } from "./PetStage";
+import { bondProfile, bondStages } from '../../src/pet/relationship.js';
+import { currentActivity } from '../../src/pet/activity.js';
 
 import "./style.css";
 
@@ -59,11 +62,15 @@ async function request(command?: PetCommand): Promise<PetSnapshot> {
 function App() {
   const [pet, setPet] = useState<PetSnapshot | null>(null);
   const [busy, setBusy] = useState(false);
+  const [clock, setClock] = useState(Date.now());
+  useEffect(() => {
+    const timer = setInterval(() => setClock(Date.now()), 250);
+    return () => clearInterval(timer);
+  }, []);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
-  const [celebrate, setCelebrate] = useState(false);
   const refresh = async () => {
     try {
       setPet(await request());
@@ -75,11 +82,6 @@ function App() {
   useEffect(() => {
     void refresh();
   }, []);
-  useEffect(() => {
-    if (!celebrate) return;
-    const timer = setTimeout(() => setCelebrate(false), 1000);
-    return () => clearTimeout(timer);
-  }, [celebrate]);
   useEffect(() => {
     let active = true;
     let inFlight = false;
@@ -115,7 +117,6 @@ function App() {
     try {
       const next = await request(command);
       setPet(next);
-      setCelebrate(true);
       const last = next.state.memory.recent.at(-1);
       setNotice(
         command.type === "rename"
@@ -153,6 +154,8 @@ function App() {
       </main>
     );
   const { state, context, mood, available } = pet;
+  const bond = pet.bond ?? bondProfile(state.relationship);
+  const activity = currentActivity(state.memory, clock);
   const petName = state.memory.profile.petName;
   const minutes = Math.floor(state.simulationMinutes);
   const controls: {
@@ -263,26 +266,14 @@ function App() {
                   {context.isNight ? "☾ Ban đêm" : "☀ Ban ngày"}
                 </button>
               </div>
-              <div
-                className={`reference-portrait ${celebrate ? "portrait-response" : ""}`}
-              >
-                <img
-                  src="/assets/pomeranian-reference.png"
-                  alt="Pomeranian trắng theo đúng ảnh mẫu: lông bông dày, mắt nâu đen tròn, tai hồng dựng và đuôi xù cuộn trên lưng"
-                />
-              </div>
-              <div className="behavior-caption" aria-live="polite">
-                <strong>{petName}</strong>
-                <span>
-                  {state.memory.recent.at(-1)
-                    ? actions[state.memory.recent.at(-1)!.action]
-                    : "Nghiêng đầu, tò mò quan sát căn phòng."}
-                </span>
-                <small>
-                  {moods[mood]} ·{" "}
-                  {context.foodAvailable ? "Bát đã có đồ ăn" : "Bát đang trống"}
-                </small>
-              </div>
+              <PetStage
+                name={petName}
+                mood={mood}
+                episode={state.memory.recent.at(-1)}
+                night={context.isNight}
+                toyKind={context.toyKind}
+                bondLevel={bond.level}
+              />
               <div className="room-bottom">
                 <span>
                   ⌂{" "}
@@ -290,19 +281,22 @@ function App() {
                     ? "Bạn đang ở nhà"
                     : "Bạn đang ra ngoài"}
                 </span>
-                <span>POMERANIAN TRẮNG</span>
+                <span>
+                  {context.foodAvailable ? "Bát đã có đồ ăn" : "Bát đang trống"}
+                </span>
               </div>
             </section>
             <section className="care card">
               <div className="section-heading">
                 <h2>Dành chút thời gian cho nhau</h2>
+                {activity && <div role="status"><p>{actions[activity.action]} · còn {Math.ceil((activity.endsAt - clock) / 1000)} giây</p><progress aria-label="Tiến trình hoạt động" max={1} value={activity.progress} /></div>}
                 <span>CHĂM SÓC</span>
               </div>
               <div className="care-actions">
                 {controls.map((control) => (
                   <button
                     key={control.label}
-                    disabled={busy || !control.enabled}
+                    disabled={busy || !control.enabled || (!!activity && control.command.type === 'act')}
                     onClick={() => void send(control.command)}
                     title={control.hint}
                   >
@@ -414,10 +408,10 @@ function App() {
                 </div>
                 <button
                   className="primary"
-                  disabled={busy}
+                  disabled={busy || !!activity}
                   onClick={() => void send({ type: "tick", minutes: 10 })}
                 >
-                  +10 phút <span>→</span>
+                  {activity ? 'Đang hoàn thành hoạt động' : '+10 phút'} <span>→</span>
                 </button>
               </div>
             </section>
@@ -466,17 +460,28 @@ function App() {
                 </form>
               )}
               <div className="bond">
-                <span>♡ Gắn bó cấp {state.relationship.bondLevel}</span>
-                <strong>{state.relationship.bondXp % 25}/25 XP</strong>
+                <span>♡ {bond.name} · Cấp {bond.level}</span>
+                <strong>{bond.nextXp === null ? 'Mốc cao nhất' : `${bond.progress}/25 XP`}</strong>
               </div>
               <progress
-                value={state.relationship.bondXp % 25}
+                value={bond.progress}
                 max={25}
                 aria-label="Tiến độ gắn bó"
               />
               <p className="bond-note">
-                Mỗi lần ở bên nhau, thêm một chút thân quen.
+                {bond.nextXp === null ? `Đã cùng nhau tích lũy ${state.relationship.bondXp} XP. Vẫn tiếp tục tạo kỷ niệm mới.` : `Còn ${bond.nextXp - state.relationship.bondXp} XP để trở thành ${bond.nextName?.toLowerCase()}.`}
               </p>
+              <div className="relationship-values">
+                <span>Tình cảm <strong>{Math.round(state.relationship.affection)}</strong></span>
+                <span>Tin cậy <strong>{Math.round(state.relationship.trust)}</strong></span>
+                <span>Quen thuộc <strong>{Math.round(state.relationship.familiarity)}</strong></span>
+              </div>
+              <details className="bond-details"><summary>Hành trình gắn bó</summary>
+                <ol>{bondStages.map((stage, index) => <li key={stage} className={index + 1 <= bond.level ? 'reached' : ''}>{index + 1 <= bond.level ? '✓ ' : ''}{stage}<small>{index * 25} XP</small></li>)}</ol>
+                <h3>Phản ứng đã mở</h3>
+                {bond.unlocked.length ? <ul>{bond.unlocked.map(item => <li key={item}>{item}</li>)}</ul> : <p>Chăm sóc và chơi cùng để Bôngg dần quen bạn.</p>}
+                <p>Không giảm cấp khi bạn nghỉ chơi.</p>
+              </details>
             </section>
             <section className="card stats">
               <div className="section-heading">
@@ -536,6 +541,16 @@ function App() {
               <small>
                 Sở thích được cập nhật sau nhiều lần ăn và chơi cùng bạn.
               </small>
+            </section>
+            <section className="card keepsakes">
+              <h2>Nhịp quen bên nhau</h2>
+              {(pet.habits ?? []).length ? <ul>{pet.habits.map(habit => <li key={habit.key}>{habit.description} — ghi nhận trong {habit.days} ngày khác nhau.</li>)}</ul> : <p className="empty">Bôngg cần ít nhất 3 ngày có hoạt động cùng buổi để nhận ra một nhịp quen.</p>}
+              <p className="muted small">Dựa trên lịch sử còn lưu trong 28 ngày gần đây, theo giờ Việt Nam. Không mất điểm khi bạn vắng mặt.</p>
+            </section>
+            <section className="card keepsakes">
+              <div className="section-heading"><h2>Kỷ niệm đáng nhớ</h2><span>GIỮ LẠI</span></div>
+              {(state.memory.keepsakes ?? []).length ? <ol>{[...state.memory.keepsakes].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 8).map(item => <li key={item.key}><span aria-hidden="true">♡</span><div><p>{item.title}</p><time dateTime={item.at}>{new Date(item.at).toLocaleDateString('vi-VN')}</time></div></li>)}</ol> : <p className="empty">Những bữa ăn, lần vuốt đầu và mốc gắn bó sẽ được lưu ở đây.</p>}
+              <p className="memory-note">Tách riêng với nhật ký gần đây. Kỷ niệm quan trọng được ưu tiên giữ lại.</p>
             </section>
             <section className="card journal">
               <div className="section-heading">

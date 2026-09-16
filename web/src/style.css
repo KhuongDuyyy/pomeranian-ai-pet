@@ -948,3 +948,209 @@ h1,
   color: #7c876f;
   line-height: 1.7;
 }
+/* Stage V1: generated poses + lightweight movement, with original art retained. */
+.room {
+  height: 580px;
+  background: #f6f4ee;
+}
+.pet-stage {
+  position: absolute;
+  inset: 0;
+  background: #f6f4ee;
+}
+.stage-night {
+  box-shadow: inset 0 0 70px #64768b26;
+}
+.room.night .room-bottom,
+.room.night .day-toggle {
+  color: #46566a;
+}
+.room-top {
+  z-index: 6;
+}
+.stage-tools {
+  position: absolute;
+  z-index: 5;
+  top: 65px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.stage-tools button {
+  background: #fffdf6dc;
+  font-size: 10px;
+  padding: 7px 12px;
+  border-color: #e5e1d7;
+}
+.motion-space {
+  position: absolute;
+  inset: 110px 0 125px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.motion-path {
+  width: min(78%, 340px);
+  aspect-ratio: 1;
+}
+.pose-sprite {
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/bongg-poses-v1.png");
+  background-size: 300% 200%;
+  background-repeat: no-repeat;
+  transform-origin: 50% 86%;
+}
+.motion-breathe .pose-sprite {
+  animation: pet-breathe 3.6s ease-in-out infinite;
+}
+.motion-sleep .pose-sprite {
+  animation: pet-sleep 4s ease-in-out infinite;
+}
+.motion-walk {
+  animation: pet-walk-path 5s ease-in-out infinite;
+}
+.motion-walk .pose-sprite {
+  animation: pet-step 0.48s ease-in-out infinite;
+}
+.motion-bounce .pose-sprite {
+  animation: pet-play 0.75s ease-in-out infinite;
+}
+.motion-eat .pose-sprite {
+  animation: pet-eat 1.3s ease-in-out infinite;
+}
+.motion-lean .pose-sprite {
+  animation: pet-lean 3s ease-in-out infinite;
+}
+.motion-alert .pose-sprite {
+  animation: pet-alert 0.45s ease-in-out 3;
+}
+.sleep-sign,
+.affection-sign {
+  position: absolute;
+  top: 13%;
+  right: 18%;
+  color: #8d9db2;
+  font:
+    italic 21px Georgia,
+    serif;
+  animation: pet-symbol 3s ease-in-out infinite;
+}
+.affection-sign {
+  color: #cf9c93;
+  font-size: 34px;
+}
+.stage-description {
+  position: absolute;
+  bottom: 55px;
+  left: 20px;
+  right: 20px;
+  padding: 15px;
+  border-radius: 16px;
+  background: #ffffffb5;
+  border: 1px solid #e5e2d8;
+  display: grid;
+  gap: 6px;
+  text-align: center;
+  font-size: 12px;
+}
+.stage-description strong {
+  font-size: 16px;
+}
+.stage-description span {
+  line-height: 1.6;
+  color: #718168;
+}
+.pet-stage .reference-portrait {
+  inset: 100px 0 130px;
+}
+.still *,
+.still {
+  animation: none !important;
+}
+@keyframes pet-breathe {
+  50% {
+    transform: scale(1.012, 1.022);
+  }
+}
+@keyframes pet-sleep {
+  50% {
+    transform: scale(1.016, 1.028);
+  }
+}
+@keyframes pet-walk-path {
+  0%,
+  100% {
+    transform: translateX(9%);
+  }
+  50% {
+    transform: translateX(-9%);
+  }
+}
+@keyframes pet-step {
+  50% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+@keyframes pet-play {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(2deg);
+  }
+}
+@keyframes pet-eat {
+  50% {
+    transform: rotate(1.3deg) scaleY(0.97);
+  }
+}
+@keyframes pet-lean {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-4deg);
+  }
+}
+@keyframes pet-alert {
+  50% {
+    transform: translateY(-5px) scale(1.015);
+  }
+}
+@keyframes pet-symbol {
+  50% {
+    transform: translateY(-7px);
+    opacity: 0.5;
+  }
+}
+@media (max-width: 700px) {
+  .room {
+    height: 505px;
+  }
+  .motion-space {
+    inset: 105px 0 125px;
+  }
+  .motion-path {
+    width: min(78%, 275px);
+  }
+  .stage-tools {
+    left: 10px;
+    right: 10px;
+  }
+  .stage-description {
+    left: 12px;
+    right: 12px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-space * {
+    animation: none !important;
+  }
+}
+.relationship-values {display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px;padding-top:15px;border-top:1px solid #e7e8de;font-size:10px;color:#839077}.relationship-values span{display:grid;gap:6px}.relationship-values strong{font-size:16px;color:#52634b;font-weight:500}.bond-details{margin-top:18px;font-size:11px;line-height:1.7}.bond-details summary{cursor:pointer;color:#596e4f}.bond-details ol{list-style:none;padding:0;margin:12px 0}.bond-details ol li{display:flex;justify-content:space-between;color:#979f8f;padding:4px 0}.bond-details li.reached{color:#52694a;font-weight:600}.bond-details small{font-weight:400}.bond-details h3{font-size:12px}.bond-details ul{padding-left:16px}.bond-details p{color:#87927d}.keepsakes ol{list-style:none;padding:0;margin:0}.keepsakes li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0eee6}.keepsakes li>span{color:#b69a79;font-size:18px}.keepsakes p{font-size:11px;margin:0 0 5px;line-height:1.6}.keepsakes time{font-size:10px;color:#909780}.keepsakes .memory-note{margin:15px 0 0;color:#8a9480;font-size:10px}

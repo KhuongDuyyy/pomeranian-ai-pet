@@ -1,7 +1,9 @@
 # Nguồn tham chiếu của Bôngg
 
 - [Đề xuất Pomeranian AI ban đầu — nguyên văn](pomeranian-initial-proposal.txt)
+- [Lộ trình 5 giai đoạn ban đầu — có thể điều chỉnh](initial-roadmap.md)
 - [Đối chiếu thiết kế và tình trạng triển khai](../PET-DESIGN.md)
+- [Tiến độ theo lộ trình](../PROGRESS.md)
 - Ảnh chuẩn: `web/public/assets/pomeranian-reference.png`.
 
 ## Cách sử dụng
