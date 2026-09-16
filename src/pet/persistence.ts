@@ -6,14 +6,16 @@ import { actionNames } from './actions.js';
 import { createState, type PetState } from './state.js';
 const value = z.number().min(0).max(100);
 const date = z.iso.datetime();
-const episode = z.object({ action: z.enum(actionNames), at: date, mood: z.enum(['hungry', 'sleepy', 'nervous', 'excited', 'playful', 'happy', 'neutral']) });
+const episode = z.object({ action: z.enum(actionNames), at: date, mood: z.enum(['hungry', 'sleepy', 'nervous', 'excited', 'playful', 'happy', 'neutral']), importance: value.optional() });
 export const stateSchema = z.object({
   version: z.literal(1),
+  simulationMinutes: z.number().nonnegative().default(0),
+  cooldowns: z.record(z.string(), z.number().nonnegative()).default({}),
   stats: z.object({ hunger: value, energy: value, happiness: value, boredom: value, stress: value, sleepiness: value, health: value }),
   relationship: z.object({ affection: value, trust: value, familiarity: value, bondXp: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER), bondLevel: z.number().int().positive() }).refine(r => r.bondLevel === 1 + Math.floor(r.bondXp / 25), 'Invalid bond level'),
   memory: z.object({
     profile: z.object({ ownerName: z.string().nullable(), petName: z.string().min(1), birthday: z.iso.date().nullable(), firstMet: date }),
-    preferences: z.object({ favoriteToy: z.string(), favoriteFood: z.string(), dislikes: z.array(z.string()) }),
+    preferences: z.object({ favoriteToy: z.string(), favoriteFood: z.string(), dislikes: z.array(z.string()), learned: z.record(z.string(), value).default({}) }),
     episodic: z.array(episode).max(200), recent: z.array(episode).max(20),
   }),
   updatedAt: date,

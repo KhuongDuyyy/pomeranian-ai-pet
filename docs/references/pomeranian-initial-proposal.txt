@@ -1,0 +1,641 @@
+- Nền tính cách nên lấy từ Pomeranian thật
+  - Rất quấn chủ, thích được chú ý.
+  - Năng lượng cao, tò mò, thích chạy nhảy và khám phá.
+  - Thông minh, học nhanh, phản ứng tốt với lời khen/thưởng.
+  - Tự tin hơn kích thước cơ thể: nhỏ nhưng khá “gan”.
+  - Cảnh giác, dễ phản ứng với âm thanh/người lạ.
+  - Có xu hướng hay sủa khi phấn khích, đòi chú ý hoặc phát hiện thứ lạ.
+  - Tinh nghịch, đôi lúc bướng.
+  - Thích tương tác với người hơn là ở một mình lâu.
+  - Biểu cảm khuôn mặt và cơ thể khá rõ: tai, mắt, đuôi, tư thế.
+  - Đây là đặc điểm giống nói chung; từng cá thể thực tế vẫn khác nhau.
+Tôi sẽ biến nó thành AI Pet như sau
+Tính cách cốt lõi
+Affectionate     90/100
+Playful          90/100
+Curious          85/100
+Energetic        80/100
+Intelligent      85/100
+Brave            75/100
+Social           80/100
+Stubborn         45/100
+Jealous          35/100
+Alert            85/100
+Không nên để mọi chỉ số = 100 vì pet sẽ thiếu cá tính.
+Trạng thái động
+Pet nên có các biến thay đổi liên tục:
+Hunger      0-100
+Energy      0-100
+Happiness   0-100
+Affection   0-100
+Trust       0-100
+Boredom     0-100
+Stress      0-100
+Sleepiness  0-100
+Health      0-100
+Ví dụ:
+- Không chơi lâu → Boredom ↑
+- Chủ quay lại → pet chạy ra mừng.
+- Cho ăn → Hunger ↓, Happiness ↑
+- Chơi nhiều → Energy ↓, Affection ↑
+- Bỏ pet quá lâu → hơi buồn nhưng không nên thiết kế theo kiểu trừng phạt/guilt-trip người dùng.
+- Chủ chăm sóc thường xuyên → Trust ↑.
+Các trạng thái cảm xúc
+Không chỉ có "vui/buồn", nên có:
+Happy
+Excited
+Curious
+Sleepy
+Hungry
+Bored
+Lonely
+Nervous
+Annoyed
+Proud
+Playful
+Surprised
+Có thể tính:
+Mood =
+personality
++ current stats
++ recent events
++ relationship with owner
+Ví dụ:
+Energy cao + Happiness cao + Boredom cao
+→ pet mang đồ chơi tới đòi chơi.
+Hành vi đặc trưng Pomeranian
+Đây là phần rất quan trọng để nó không thành một chatbot đội lốt chó.
+Cho pet thường xuyên:
+- nghiêng đầu khi không hiểu.
+- vẫy đuôi rất nhanh.
+- chạy vòng vòng khi phấn khích.
+- nhảy bằng hai chân trước.
+- ngồi sát chủ.
+- cọ đầu.
+- dùng chân chạm người.
+- ngửi đồ vật mới.
+- nhìn chằm chằm khi muốn đồ ăn.
+- nằm cuộn tròn khi ngủ.
+- tai dựng lên khi nghe tiếng động.
+- sủa ngắn khi phát hiện thứ gì đó.
+- hắt hơi/phì mũi khi chơi.
+- tha đồ chơi đến.
+- quay vòng trước khi nằm.
+Ví dụ AI:
+Miu dựng hai tai lên, nghiêng đầu nhìn bạn rồi chạy tới với quả bóng trong miệng.
+
+Thay vì:
+"Xin chào chủ nhân. Bạn muốn làm gì hôm nay?"
+
+Khả năng giao tiếp
+Tôi khuyên không cho nó nói hoàn toàn như người.
+Có 3 lớp:
+1. Hành động
+*Miu nghiêng đầu.*
+
+2. Âm thanh
+"Gâu!"
+
+3. Suy nghĩ AI
+"Miu có vẻ muốn bạn chơi cùng."
+Khi thân thiết hơn có thể mở khóa dạng:
+"Chơi nữa..."
+
+Như vậy vẫn giữ cảm giác pet, không biến thành trợ lý AI.
+Trí nhớ
+Pet nên nhớ:
+- tên chủ.
+- tên của chính nó.
+- món ăn chủ thường cho.
+- trò chơi yêu thích.
+- giờ người dùng thường xuất hiện.
+- những lần được khen.
+- đồ vật yêu thích.
+- địa điểm yêu thích.
+- ngày sinh.
+- ngày gặp chủ lần đầu.
+Ví dụ:
+Memory:
+Owner usually visits at 21:00
+Favorite toy = yellow ball
+Favorite food = chicken
+Owner scratches behind ears often
+Sau một thời gian:
+Miu chạy về phía chiếc bóng vàng mà hai người thường chơi.
+
+Đây sẽ tạo cảm giác nó thực sự sống cùng người dùng.
+Quan hệ với chủ
+Tôi sẽ tách thành:
+Affection
+Trust
+Familiarity
+Bond Level
+Ví dụ:
+Lv1 Stranger
+Lv2 Familiar
+Lv3 Friend
+Lv4 Close Friend
+Lv5 Family
+Lv6 Best Friend
+Lv7 Soul Companion
+Level cao mở khóa:
+- hành động mới.
+- animation mới.
+- cách ngủ mới.
+- pet chủ động tìm bạn.
+- biểu cảm đặc biệt.
+- vật phẩm.
+- khả năng hiểu câu phức tạp hơn.
+Cá tính riêng
+Đừng để tất cả Pomeranian AI giống nhau.
+Khi tạo pet có thể random:
+Favorite food
+Favorite toy
+Favorite sleeping position
+Fear
+Habit
+Temperament
+Favorite activity
+Ví dụ con của bạn:
+Tên: chưa đặt
+
+Giống:
+White Pomeranian
+
+Personality:
+- cực kỳ tò mò
+- quấn chủ
+- hơi nghịch
+- rất thích được vuốt đầu
+- thích khám phá
+- hơi tham ăn
+- gan nhưng dễ giật mình
+
+Favorite:
+- Chicken
+- Small blue ball
+- Running
+- Head scratches
+
+Dislikes:
+- Loud noises
+- Being ignored too long
+- Bathing
+Chu kỳ sống
+Không nhất thiết phải già/chết như Tamagotchi.
+Tôi khuyên:
+Puppy
+↓
+Young
+↓
+Adult
+↓
+Bond Evolution
+Sau đó tiến hóa dựa trên quan hệ, thay vì tuổi.
+Ví dụ:
+Normal
+↓
+Happy
+↓
+Trusted
+↓
+Companion
+↓
+Special form
+Ngoại hình có thể thay đổi nhẹ:
+- vòng cổ.
+- phụ kiện.
+- kiểu lông.
+- biểu cảm.
+- animation.
+- aura.
+- phòng riêng.
+AI nên tự chủ động
+Điểm quan trọng nhất.
+Không nên:
+User click Feed
+→ pet eats
+Mà nên có:
+Pet state
+     ↓
+Decision system
+     ↓
+AI chooses behavior
+Ví dụ:
+Hungry > 80
+→ tìm chủ
+→ nhìn bát
+→ kêu
+→ nếu vẫn chưa ăn
+→ nằm cạnh bát
+Hoặc:
+Boredom > 70
+Energy > 60
+→ lấy bóng
+→ chạy tới chủ
+→ yêu cầu chơi
+Như vậy nó sẽ có cảm giác có ý chí riêng.
+Kiến trúc AI Pet tôi khuyên
+Pomeranian personality
+        +
+Current stats
+        +
+Memory
+        +
+Relationship
+        +
+Environment
+        ↓
+Decision Engine
+        ↓
+GPT
+        ↓
+Action + Emotion + Dialogue
+        ↓
+Animation
+Ví dụ input nội bộ:
+{
+  "mood": "excited",
+  "energy": 82,
+  "hunger": 24,
+  "affection": 76,
+  "owner_present": true,
+  "favorite_toy": "blue ball"
+}
+AI quyết định:
+ACTION: bring_ball
+EMOTION: excited
+SOUND: happy_bark
+TEXT: "*Miu chạy tới với quả bóng trong miệng.*"
+Với project của bạn, tôi sẽ ưu tiên xây Personality + Stats + Memory + Decision Engine trước, rồi mới làm animation và giao diện. Đây là 4 phần quyết định pet có cảm giác "sống" hay chỉ là một chatbot có hình con chó.
+
+
+
+
+  
+
+
+
+
+
+1 đoạn đã chọn
+hãy làm cho tôi
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Personality — cố định
+{
+  "species": "White Pomeranian",
+  "personality": {
+    "affectionate": 92,
+    "playful": 90,
+    "curious": 86,
+    "energetic": 82,
+    "intelligent": 85,
+    "social": 80,
+    "alert": 84,
+    "brave": 72,
+    "stubborn": 42,
+    "food_motivated": 68,
+    "sensitivity": 60
+  },
+  "behavior_traits": [
+    "quấn chủ",
+    "thích được vuốt đầu",
+    "hay nghiêng đầu khi tò mò",
+    "mang đồ chơi đến khi muốn chơi",
+    "chạy vòng khi rất vui",
+    "tai dựng khi nghe tiếng động",
+    "thỉnh thoảng sủa ngắn khi cảnh giác",
+    "hơi tham ăn",
+    "không thích tiếng động lớn"
+  ]
+}
+Personality gần như không thay đổi theo thời gian. Nó định nghĩa pet là “ai”.
+2. Stats — thay đổi liên tục
+Quy ước: 0 → 100.
+{
+  "stats": {
+    "hunger": 25,
+    "energy": 85,
+    "happiness": 80,
+    "boredom": 15,
+    "stress": 5,
+    "sleepiness": 10,
+    "health": 100
+  },
+
+  "relationship": {
+    "affection": 20,
+    "trust": 10,
+    "familiarity": 5,
+    "bond_xp": 0,
+    "bond_level": 1
+  }
+}
+Tự thay đổi
+Ví dụ mỗi 10 phút:
+Hunger      +1
+Energy      -0.3
+Boredom     +0.5
+Sleepiness  +0.2
+Khi chơi:
+Energy      -12
+Boredom     -25
+Happiness   +15
+Affection   +2
+Bond XP     +3
+Cho ăn:
+Hunger      -40
+Happiness   +8
+Trust       +1
+Ngủ:
+Energy      +50
+Sleepiness  -60
+Stress      -10
+3. Mood Engine
+Không lưu mood cố định.
+Mood được tính từ trạng thái hiện tại.
+Nếu Hunger > 75
+→ hungry
+
+Nếu Sleepiness > 75
+→ sleepy
+
+Nếu Stress > 60
+→ nervous
+
+Nếu Happiness > 75
+và Energy > 60
+→ excited
+
+Nếu Boredom > 65
+và Energy > 50
+→ playful
+
+Nếu Happiness > 60
+→ happy
+
+còn lại
+→ neutral
+Ví dụ:
+{
+  "mood": "playful"
+}
+4. Memory
+Tôi đề xuất chia thành 4 lớp.
+Profile Memory
+Thông tin lâu dài:
+{
+  "owner": {
+    "name": null
+  },
+
+  "pet": {
+    "name": null,
+    "birthday": null,
+    "first_met": null
+  }
+}
+Preference Memory
+{
+  "preferences": {
+    "favorite_food": [],
+    "favorite_toys": [],
+    "favorite_actions": [],
+    "disliked_things": []
+  }
+}
+Ví dụ sau này:
+{
+  "favorite_food": ["chicken"],
+  "favorite_toys": ["blue_ball"],
+  "favorite_actions": ["head_scratch"],
+  "disliked_things": ["loud_noise"]
+}
+Pet tự học những thứ này.
+Episodic Memory
+Nhớ các sự kiện:
+{
+  "event": "owner_played_blue_ball",
+  "time": "2026-09-16T20:30:00",
+  "emotion": "happy",
+  "importance": 72
+}
+Ví dụ:
+Bạn chơi bóng với pet 10 lần
+
+→ pet học:
+blue_ball = strongly_positive
+Recent Memory
+Khoảng 10–30 tương tác gần nhất:
+[
+  {
+    "action": "owner_head_scratch",
+    "result": "happy"
+  },
+  {
+    "action": "owner_gave_food",
+    "result": "very_happy"
+  }
+]
+Dùng để pet có thể liên hệ:
+Nó vẫn còn phấn khích vì vừa chơi với bạn.
+
+5. Decision Engine
+Đây là phần quan trọng nhất.
+Pet không chờ người dùng click.
+Mỗi chu kỳ:
+Current State
+      ↓
+Generate possible actions
+      ↓
+Score actions
+      ↓
+Personality modifier
+      ↓
+Context modifier
+      ↓
+Randomness
+      ↓
+Choose action
+Ví dụ các action:
+sleep
+rest
+explore
+ask_food
+eat
+bring_toy
+play
+seek_owner
+sit_near_owner
+request_attention
+greet_owner
+bark_alert
+look_around
+wander
+Cách tính điểm
+Ví dụ:
+ask_food
+score =
+Hunger × 1.5
++ FoodMotivated × 0.3
+Hunger = 80:
+80 × 1.5
++
+68 × 0.3
+
+= 140.4
+Khả năng rất cao pet đi tìm đồ ăn.
+bring_toy
+score =
+Boredom × 1.1
++ Energy × 0.7
++ Playful × 0.6
++ Affection × 0.2
+Pet sẽ tự mang bóng tới.
+sleep
+score =
+Sleepiness × 1.5
++
+(100 - Energy) × 0.8
+seek_owner
+score =
+Affectionate × 0.5
++ Boredom × 0.5
++ RelationshipAffection × 0.5
+6. Không chọn hành động tuyệt đối
+Thêm randomness khoảng:
+± 15%
+Như vậy cùng một trạng thái pet không phải lúc nào cũng làm đúng một hành động.
+Ví dụ:
+70% mang bóng
+20% chạy tới chủ
+10% tự đi khám phá
+→ cảm giác tự nhiên hơn.
+7. Context
+Decision Engine cần biết:
+{
+  "context": {
+    "owner_present": true,
+    "owner_active": true,
+    "time_of_day": "evening",
+    "location": "living_room",
+    "nearby_objects": [
+      "bed",
+      "food_bowl",
+      "blue_ball"
+    ]
+  }
+}
+Ví dụ:
+Boredom = 80
+Owner absent
+Không thể:
+mang bóng đến cho chủ.
+
+Thay vào đó:
+→ explore
+→ play_alone
+→ rest
+8. Event → Memory → Personality response
+Ví dụ bạn vuốt đầu:
+USER:
+head_scratch
+Engine:
+Pet thích head scratch
++
+Affectionate cao
++
+Owner present
+Kết quả:
+{
+  "action": "lean_into_hand",
+  "emotion": "happy",
+  "sound": "soft_happy_noise",
+
+  "stats_change": {
+    "happiness": 8,
+    "stress": -5,
+    "affection": 2
+  }
+}
+Animation:
+Pet nhắm mắt, nghiêng đầu áp vào tay bạn và vẫy đuôi.
+
+9. Relationship Level
+Level 1 — Stranger
+Level 2 — Familiar
+Level 3 — Friend
+Level 4 — Close Friend
+Level 5 — Family
+Level 6 — Companion
+Level 7 — Soul Companion
+XP ví dụ:
+Feed              +1 XP
+Play              +3 XP
+Petting            +1 XP
+Long interaction   +5 XP
+Special event     +10 XP
+Không nên giảm Bond Level chỉ vì người dùng vài ngày không mở app.
+10. Cấu trúc dữ liệu V1
+Pet
+│
+├── identity
+│   ├── name
+│   ├── species
+│   └── birthday
+│
+├── personality
+│
+├── stats
+│
+├── relationship
+│
+├── mood
+│
+├── memory
+│   ├── profile
+│   ├── preferences
+│   ├── episodic
+│   └── recent
+│
+├── context
+│
+└── decision_engine
+Luồng hoàn chỉnh
+                ┌───────────────┐
+                │ Personality   │
+                └───────┬───────┘
+                        │
+Stats ─────────────┐    │
+Memory ────────────┼────▼───────┐
+Relationship ──────┤ Decision   │
+Environment ───────┤ Engine     │
+Owner Action ──────┘────┬───────┘
+                        │
+                  Pet chooses
+                    behavior
+                        │
+            ┌───────────┼───────────┐
+            ▼           ▼           ▼
+         Action       Emotion     Sound
+            │
+            ▼
+        Animation
+            │
+            ▼
+       Update Stats
+            │
+            ▼
+       Save Memory

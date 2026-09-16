@@ -7,6 +7,7 @@ export function rankActions(state: PetState, context: Context, random: () => num
   const s = state.stats;
   const r = state.relationship;
   const scores: Record<Action, number> = {
+    headScratch: 0,
     sleep: s.sleepiness * 1.1 + (100 - s.energy) * 0.9 + (context.isNight ? 20 : 0),
     rest: (100 - s.energy) * 0.9 + s.stress * 0.3,
     explore: s.boredom * 0.55 + traits.curious * 0.3 + traits.intelligent * 0.05,
@@ -25,7 +26,9 @@ export function rankActions(state: PetState, context: Context, random: () => num
   // Critical physical needs take priority over greetings or repetitive requests.
   if (s.energy < 15 || s.sleepiness > 90) scores.sleep += 200;
   if (s.hunger > 85) { scores.eat += 200; scores.askFood += 100; }
-  return actionNames.filter(action => canAct(action, state, context)).map(action => {
+  if (context.foodKind === state.memory.preferences.favoriteFood) scores.eat += 5;
+  if (context.toyKind === state.memory.preferences.favoriteToy) scores.play += 5;
+  return actionNames.filter(action => action !== 'headScratch' && canAct(action, state, context)).map(action => {
     const draw = random();
     if (!Number.isFinite(draw) || draw < 0 || draw >= 1) throw new Error('Random source must return a value in [0, 1).');
     const repetitions = state.memory.recent.slice(-3).filter(event => event.action === action).length;

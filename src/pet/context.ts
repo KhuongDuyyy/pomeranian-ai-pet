@@ -1,2 +1,2 @@
-export interface Context { ownerPresent: boolean; ownerJustArrived: boolean; foodAvailable: boolean; toyAvailable: boolean; loudNoise: boolean; isNight: boolean }
-export const defaultContext: Readonly<Context> = Object.freeze({ ownerPresent: true, ownerJustArrived: false, foodAvailable: false, toyAvailable: true, loudNoise: false, isNight: false });
+export interface Context { ownerPresent: boolean; ownerJustArrived: boolean; foodAvailable: boolean; toyAvailable: boolean; loudNoise: boolean; isNight: boolean; foodKind: string; toyKind: string; ownerActive: boolean; location: string }
+export const defaultContext: Readonly<Context> = Object.freeze({ ownerPresent: true, ownerJustArrived: false, foodAvailable: false, toyAvailable: true, loudNoise: false, isNight: false, foodKind: 'kibble', toyKind: 'blue_ball', ownerActive: true, location: 'living_room' });

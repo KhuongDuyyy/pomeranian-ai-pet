@@ -18,8 +18,8 @@ async function main(): Promise<void> {
   const steps = Number(option('--steps', '12'));
   if (!Number.isInteger(steps) || steps < 1 || steps > 10000) throw new Error('--steps must be an integer from 1 to 10000.');
   const pet = new Pet(await loadState(path));
-  const show = () => console.log(JSON.stringify({ name: pet.state.memory.profile.petName, mood: pet.mood, stats: pet.state.stats, relationship: pet.state.relationship }, null, 2));
-  const step = (minutes = 10) => console.log(`Action: ${pet.tick(minutes)} | Mood: ${pet.mood}`);
+  const show = () => console.log(JSON.stringify({ name: pet.state.memory.profile.petName, mood: pet.mood, simulationMinutes: pet.state.simulationMinutes, stats: pet.state.stats, relationship: pet.state.relationship }, null, 2));
+  const step = (minutes = 10) => console.log(`Action: ${pet.tick(minutes)} | Mood: ${pet.mood} | Simulated minutes: ${pet.state.simulationMinutes}`);
   console.log('White Pomeranian - AI Pet V1');
   if (!args.includes('--interactive')) {
     for (let i = 0; i < steps; i++) step();
@@ -47,7 +47,7 @@ async function main(): Promise<void> {
           case 'food': pet.context.foodAvailable = true; step(0); break;
           case 'play': console.log(pet.act('play')); break;
           case 'sleep': console.log(pet.act('sleep')); break;
-          case 'pet': console.log(pet.act('sitNearOwner')); break;
+          case 'pet': console.log(pet.act('headScratch'));  break;
           case 'arrive': pet.context.ownerPresent = true; pet.context.ownerJustArrived = true; step(0); break;
           case 'leave': pet.context.ownerPresent = false; pet.context.ownerJustArrived = false; break;
           case 'noise': pet.context.loudNoise = true; step(0); break;
